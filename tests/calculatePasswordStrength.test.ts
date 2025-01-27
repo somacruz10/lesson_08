@@ -1,13 +1,7 @@
 import { calculatePasswordStrength } from '../src/calculatePasswordStrength';
-import {LinkChecker} from "../src/url-checker"; // Укажите правильный путь к модулю
+
 
 describe('calculatePasswordStrength', () => {
-    // let linkChecker: LinkChecker;
-    //
-    // beforeEach(() => {
-    //     linkChecker = new LinkChecker();
-    // });
-
     test('should return "Very Weak" for passwords with less than 8 characters', () => {
         expect(calculatePasswordStrength('short')).toBe('Very Weak');
         expect(calculatePasswordStrength('12345')).toBe('Very Weak');
@@ -17,7 +11,7 @@ describe('calculatePasswordStrength', () => {
     test('should return "Weak" for passwords with basic length and one other criteria', () => {
         expect(calculatePasswordStrength('123456789101112')).toBe('Weak'); // Только цифры
         expect(calculatePasswordStrength('password1')).toBe('Weak'); // Буквы и цифра
-        expect(calculatePasswordStrength('PASSw1')).toBe('Weak'); // Большие буквы и цифра
+        expect(calculatePasswordStrength('PASSw1')).toBe('Weak'); // Большие буквы, маленькая буква и цифра
         expect(calculatePasswordStrength('PAS1!')).toBe('Weak'); // Большие буквы, цифра и символ
         expect(calculatePasswordStrength('aaaaaaaaaaaa')).toBe('Weak'); // Только строчные буквы
     });
