@@ -6,14 +6,16 @@ describe('calculatePasswordStrength', () => {
         expect(calculatePasswordStrength('short')).toBe('Very Weak');
         expect(calculatePasswordStrength('12345')).toBe('Very Weak');
         expect(calculatePasswordStrength('password')).toBe('Very Weak'); // Только строчные буквы
+        expect(calculatePasswordStrength('')).toBe('Very Weak'); // Пустая строка
     });
 
     test('should return "Weak" for passwords with basic length and one other criteria', () => {
+        expect(calculatePasswordStrength('aaaaaaaaaaaa')).toBe('Weak'); // Только строчные буквы
         expect(calculatePasswordStrength('123456789101112')).toBe('Weak'); // Только цифры
         expect(calculatePasswordStrength('password1')).toBe('Weak'); // Буквы и цифра
         expect(calculatePasswordStrength('PASSw1')).toBe('Weak'); // Большие буквы, маленькая буква и цифра
         expect(calculatePasswordStrength('PAS1!')).toBe('Weak'); // Большие буквы, цифра и символ
-        expect(calculatePasswordStrength('aaaaaaaaaaaa')).toBe('Weak'); // Только строчные буквы
+        expect(calculatePasswordStrength('A1!')).toBe('Weak'); // Очень короткий пароль, несмотря на сложность
     });
 
     test('should return "Moderate" for passwords meeting 3-4 criteria', () => {
@@ -27,8 +29,4 @@ describe('calculatePasswordStrength', () => {
         expect(calculatePasswordStrength('Str0ngP@ssw0rd')).toBe('Strong'); // Все критерии, включая длину >= 12
     });
 
-    test('should handle edge cases correctly', () => {
-        expect(calculatePasswordStrength('')).toBe('Very Weak'); // Пустая строка
-        expect(calculatePasswordStrength('A1!')).toBe('Weak'); // Очень короткий пароль, несмотря на сложность
-    });
 });
